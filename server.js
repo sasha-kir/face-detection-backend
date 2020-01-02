@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -9,16 +10,11 @@ const faceDetection = require("./controllers/face-detection.js");
 
 const db = knex({
   client: "pg",
-  connection: {
-    host : "127.0.0.1",
-    user : "sasha_kir",
-    password : "",
-    database : "face-recognition-app"
-  }
+  connection: process.env.DATABASE_URL
 });
 
 const app = express();
-const port = 3001;
+const port = 5001;
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -48,5 +44,5 @@ app.post("/sign-in", signIn.handleSignIn(db))
 app.post("/register", register.handleRegister(db))
 
 app.listen(port, () => {
-	console.log(`Face detection backend is running on port ${port}`)
+	console.log(`Face detection backend is running on port ${port}`);
 })
