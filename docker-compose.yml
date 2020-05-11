@@ -1,0 +1,26 @@
+version: "3"
+services:
+  app:
+    build: .
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    environment:
+        NODE_ENV: production
+        DATABASE_URL: "postgres://user:password@postgres:5432/face-recognition-app"
+    ports:
+      - "8080:5001"
+    command: sh -c "npm run migrate-up && node server.js"
+    volumes:
+      - .:/app/
+      - /app/node_modules
+
+  postgres:
+    image: postgres:10.4
+    ports:
+      - "35432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: face-recognition-app

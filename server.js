@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-	res.send("Face Detection API is up and running")
+	res.send("Face Detection API is up and running");
 	//db.select().from("users")
 	//  .then(data => res.json(data));
 })
